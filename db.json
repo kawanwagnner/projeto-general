@@ -1,0 +1,15 @@
+{
+  "contatos": [
+    {
+      "id": "1",
+      "nome": "Ricks da vassoura",
+      "tel": "77777777"
+    },
+
+    {
+      "id": "2",
+      "nome": "Emersinho",
+      "tel": "999999999"
+    }
+  ]
+}

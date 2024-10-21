@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
 export default function Sobre() {
+  const [contatos, setContatos] = useState([]);
+
+  const listContact = () => {
+    // Função para buscar contatos do server
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sobre Nós</Text>
