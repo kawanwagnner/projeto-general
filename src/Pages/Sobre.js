@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
@@ -6,6 +7,14 @@ export default function Sobre() {
 
   const listContact = () => {
     // Função para buscar contatos do server
+    axios
+      .get("http://10.0.2.2:3000/contatos")
+      .then((response) => {
+        setContatos(response.data);
+      })
+      .catch((error) => {
+        console.error("ERROR ao buscar contatos", contatos);
+      });
   };
 
   return (
