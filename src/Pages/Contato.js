@@ -1,36 +1,68 @@
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import axios from "axios";
 
 export default function Contato() {
+  const [nome, setNome] = useState("");
+  const [tel, settel] = useState("");
+
+  const enviarContato = async () => {
+    if (!nome || !tel) {
+      Alert.alert("Erro, por favor preencha todos os campos!");
+      return;
+    }
+
+    const novoContato = { nome, tel };
+
+    axios
+      .post("http://10.0.2.2:3000/contatos", novoContato)
+      .then((resposta) => {
+        if (resposta.status === 201) {
+          Alert.alert("Sucesso, contato adicionado!");
+          setNome("");
+          settel("");
+        } else {
+          Alert.alert("Erro, falha ao adicionar contato.");
+        }
+      });
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Contato</Text>
-      <Text style={styles.content}>
-        Se você tem alguma dúvida ou gostaria de entrar em contato conosco,
-        envie um e-mail para suporte@app.com ou ligue para (11) 1234-5678.
-      </Text>
-      <Text style={styles.content}>
-        Nossa equipe está disponível de segunda a sexta-feira, das 9h às 18h.
-      </Text>
+      <Text style={styles.label}>Nome</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu Nome"
+        value={nome}
+        onChangeText={setNome}
+      />
+
+      <Text style={styles.label}>Celular</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu WhatsApp"
+        value={tel}
+        onChangeText={settel}
+      />
+
+      <Button title="Enviar contato" onPress={enviarContato} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
+    padding: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
+  label: {
+    fontSize: 18,
+    marginBottom: 5,
   },
-  content: {
-    fontSize: 16,
-    textAlign: "center",
-    marginTop: 10,
-    lineHeight: 24,
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 10,
+    marginBottom: 20,
+    borderRadius: 5,
   },
 });

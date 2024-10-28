@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import axios from "axios";
 
 export default function Sobre() {
@@ -7,9 +14,8 @@ export default function Sobre() {
   const [faqs, setFaq] = useState([]);
 
   const listContact = () => {
-    // Função para buscar contatos do server
     axios
-      .get("http://10.0.2.2:3000/contatos")
+      .get("http://10.0.2.2:3000/contatos") // Ajuste o IP se estiver em um emulador
       .then((response) => {
         setContatos(response.data);
       })
@@ -19,9 +25,8 @@ export default function Sobre() {
   };
 
   const listFaq = () => {
-    // Função para buscar FAQs do server
     axios
-      .get("http://10.0.2.2:3000/faq")
+      .get("http://10.0.2.2:3000/faq") // Ajuste o IP se estiver em um emulador
       .then((response) => {
         setFaq(response.data);
       })
@@ -30,11 +35,25 @@ export default function Sobre() {
       });
   };
 
-  // Usando o useEffect para buscar dados
   useEffect(() => {
     listFaq();
     listContact();
   }, []);
+
+  const handleEditContact = (contact) => {
+    console.log("Editando contato:", contact);
+  };
+
+  const handleDeleteContact = (contactId) => {
+    axios
+      .delete(`http://10.0.2.2:3000/contatos/${contactId}`)
+      .then(() => {
+        listContact();
+      })
+      .catch((error) => {
+        console.error("ERROR ao excluir contato", error);
+      });
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -42,9 +61,23 @@ export default function Sobre() {
         <Text style={styles.title}>Lista de Contatos</Text>
         {contatos.length > 0 ? (
           contatos.map((contato, index) => (
-            <View key={index} style={styles.contactCard}>
+            <View key={contato.id} style={styles.contactCard}>
               <Text style={styles.contactName}>{contato.nome}</Text>
               <Text style={styles.contactPhone}>{contato.tel}</Text>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.editButton}
+                  onPress={() => handleEditContact(contato)}
+                >
+                  <Text style={styles.buttonText}>Editar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => handleDeleteContact(contato.id)}
+                >
+                  <Text style={styles.buttonText}>Excluir</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           ))
         ) : (
@@ -53,10 +86,10 @@ export default function Sobre() {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.title}>Lista de FAQ</Text>
+        <Text style={styles.title}>Nosso FAQ</Text>
         {faqs.length > 0 ? (
-          faqs.map((faq, index) => (
-            <View key={index} style={styles.faqCard}>
+          faqs.map((faq) => (
+            <View key={faq.id} style={styles.faqCard}>
               <Text style={styles.faqQuestion}>{faq.pergunta}</Text>
               <Text style={styles.faqAnswer}>{faq.resposta}</Text>
             </View>
@@ -131,5 +164,28 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: "center",
     marginTop: 10,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  editButton: {
+    backgroundColor: "#4CAF50",
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    marginRight: 5,
+  },
+  deleteButton: {
+    backgroundColor: "#f44336",
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

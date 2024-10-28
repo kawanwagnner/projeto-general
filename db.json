@@ -1,19 +1,14 @@
 {
   "contatos": [
     {
-      "id": "1",
-      "nome": "Ricks da vassoura",
-      "tel": "77777777"
-    },
-    {
-      "id": "2",
-      "nome": "Emersinho",
-      "tel": "999999999"
-    },
-    {
-      "id": "2",
+      "id": "3",
       "nome": "Jão",
       "tel": "994399999"
+    },
+    {
+      "id": "c96c",
+      "nome": "Kawan",
+      "tel": "11 939060203"
     }
   ],
   "faq": [
