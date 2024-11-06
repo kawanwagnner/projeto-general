@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient"; // Biblioteca para gradiente, se não tiver pode instalar com "expo install expo-linear-gradient"
 
 export default function Header() {
