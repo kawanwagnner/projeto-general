@@ -7,7 +7,7 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons"; // Para o ícone de coração
+import { Ionicons } from "@expo/vector-icons";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -20,7 +20,7 @@ export default function App() {
         <Text style={styles.sectionTitle}>Sugestões</Text>
         <View style={styles.suggestionCard}>
           <ImageBackground
-            source={{ uri: "https://via.placeholder.com/300x150" }} // Substitua pela URL da imagem do judô
+            source={{ uri: "../../assets/judo.png" }}
             style={styles.imageBackground}
             imageStyle={styles.cardImage}
           >
@@ -68,7 +68,7 @@ export default function App() {
 
         <View style={styles.favoriteCard}>
           <ImageBackground
-            source={{ uri: "https://via.placeholder.com/300x150" }} // Substitua pela URL da imagem da corrida
+            source={{ uri: "https://via.placeholder.com/300x150" }}
             style={styles.imageBackground}
             imageStyle={styles.cardImage}
           >
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     paddingVertical: 20,
     backgroundColor: "#F5F5F5",
-    paddingTop: 80,
+    paddingTop: 60,
   },
   location: {
     fontSize: 16,
