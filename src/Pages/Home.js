@@ -8,78 +8,85 @@ import {
   Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import BottomNavBar from "../Components/BottomNavBar";
 
 const screenWidth = Dimensions.get("window").width;
 
 export default function App() {
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <Text style={styles.location}>R. Sílvio Coelho De Alverga, 165</Text>
+    <>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Text style={styles.location}>R. Sílvio Coelho De Alverga, 165</Text>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Sugestões</Text>
-        <View style={styles.suggestionCard}>
-          <ImageBackground
-            source={{ uri: "../../assets/judo.png" }}
-            style={styles.imageBackground}
-            imageStyle={styles.cardImage}
-          >
-            <View style={styles.cardContent}>
-              <Text style={styles.cardText}>Judô - ring y</Text>
-              <Ionicons
-                name="heart-outline"
-                size={20}
-                color="white"
-                style={styles.heartIcon}
-              />
-            </View>
-          </ImageBackground>
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Favoritos</Text>
-
-        <View style={styles.favoriteCard}>
-          <ImageBackground
-            source={{ uri: "https://via.placeholder.com/300x150" }} // Substitua pela URL da imagem do futsal
-            style={styles.imageBackground}
-            imageStyle={styles.cardImage}
-          >
-            <View style={styles.cardContent}>
-              <Text style={styles.cardText}>Futsal na quadra y</Text>
-              <Text style={styles.cardSubtext}>Quarta - 17/08 às 09:30</Text>
-            </View>
-          </ImageBackground>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Sugestões</Text>
+          <View style={styles.suggestionCard}>
+            <ImageBackground
+              source={{
+                uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
+              }}
+              style={styles.imageBackground}
+              imageStyle={styles.cardImage}
+            >
+              <View style={styles.cardContent}>
+                <Text style={styles.cardText}>Judô - ring y</Text>
+                <Ionicons
+                  name="heart-outline"
+                  size={20}
+                  color="white"
+                  style={styles.heartIcon}
+                />
+              </View>
+            </ImageBackground>
+          </View>
         </View>
 
-        <View style={styles.favoriteCard}>
-          <ImageBackground
-            source={{ uri: "https://via.placeholder.com/300x150" }} // Substitua pela URL da imagem de natação
-            style={styles.imageBackground}
-            imageStyle={styles.cardImage}
-          >
-            <View style={styles.cardContent}>
-              <Text style={styles.cardText}>Natação na piscina x</Text>
-              <Text style={styles.cardSubtext}>Sábado - 19/09 às 09:30</Text>
-            </View>
-          </ImageBackground>
-        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Favoritos</Text>
 
-        <View style={styles.favoriteCard}>
-          <ImageBackground
-            source={{ uri: "https://via.placeholder.com/300x150" }}
-            style={styles.imageBackground}
-            imageStyle={styles.cardImage}
-          >
-            <View style={styles.cardContent}>
-              <Text style={styles.cardText}>Corrida na orla</Text>
-              <Text style={styles.cardSubtext}>Domingo - 21/03 às 09:30</Text>
-            </View>
-          </ImageBackground>
+          <View style={styles.favoriteCard}>
+            <ImageBackground
+              source={{ uri: "https://via.placeholder.com/300x150" }} // Substitua pela URL da imagem do futsal
+              style={styles.imageBackground}
+              imageStyle={styles.cardImage}
+            >
+              <View style={styles.cardContent}>
+                <Text style={styles.cardText}>Futsal na quadra y</Text>
+                <Text style={styles.cardSubtext}>Quarta - 17/08 às 09:30</Text>
+              </View>
+            </ImageBackground>
+          </View>
+
+          <View style={styles.favoriteCard}>
+            <ImageBackground
+              source={{ uri: "https://via.placeholder.com/300x150" }} // Substitua pela URL da imagem de natação
+              style={styles.imageBackground}
+              imageStyle={styles.cardImage}
+            >
+              <View style={styles.cardContent}>
+                <Text style={styles.cardText}>Natação na piscina x</Text>
+                <Text style={styles.cardSubtext}>Sábado - 19/09 às 09:30</Text>
+              </View>
+            </ImageBackground>
+          </View>
+
+          <View style={styles.favoriteCard}>
+            <ImageBackground
+              source={{ uri: "https://via.placeholder.com/300x150" }}
+              style={styles.imageBackground}
+              imageStyle={styles.cardImage}
+            >
+              <View style={styles.cardContent}>
+                <Text style={styles.cardText}>Corrida na orla</Text>
+                <Text style={styles.cardSubtext}>Domingo - 21/03 às 09:30</Text>
+              </View>
+            </ImageBackground>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+
+      <BottomNavBar />
+    </>
   );
 }
 
