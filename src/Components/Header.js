@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient"; // Biblioteca para gradiente, se não tiver pode instalar com "expo install expo-linear-gradient"
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Header() {
   return (
     <LinearGradient
-      colors={["#4c669f", "#3b5998", "#192f5d"]} // Gradiente de azul
+      colors={["#4c669f", "#3b5998", "#192f5d"]}
       style={styles.topo}
     >
       <Text style={styles.tituloHeader}>Informações</Text>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
     textAlign: "center",
-    textTransform: "capitalize", // deixa o texto em maiúsculas
-    letterSpacing: 1.5, // Espaçamento entre letras para um toque mais moderno
+    textTransform: "capitalize",
+    letterSpacing: 1.5,
   },
 });
