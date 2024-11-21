@@ -5,6 +5,7 @@ import HomeScreen from "./src/Pages/Home";
 import LoginScreen from "./src/Pages/Login";
 import SignupScreen from "./src/Pages/SignUp";
 import DetailsEventScreen from "./src/Pages/DetailsEvent";
+import SearchScreen from "./src/Pages/SearchScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,11 @@ export default function MainNavigator() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
