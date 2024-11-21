@@ -8,6 +8,7 @@ import {
   Dimensions,
   ImageBackground,
 } from "react-native";
+import BottomNavBar from "../Components/BottomNavBar";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -66,26 +67,32 @@ const sports = [
 
 export default function SearchScreen() {
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Esportes disponíveis</Text>
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Esportes disponíveis</Text>
+        </View>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          {sports.map((sport, index) => (
+            <TouchableOpacity key={index} style={styles.card}>
+              <ImageBackground
+                source={{ uri: sport.uri }}
+                style={styles.imageBackground}
+                imageStyle={styles.imageStyle}
+              >
+                <View
+                  style={[styles.overlay, { backgroundColor: sport.color }]}
+                >
+                  <Text style={styles.cardText}>{sport.name}</Text>
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {sports.map((sport, index) => (
-          <TouchableOpacity key={index} style={styles.card}>
-            <ImageBackground
-              source={{ uri: sport.uri }}
-              style={styles.imageBackground}
-              imageStyle={styles.imageStyle}
-            >
-              <View style={[styles.overlay, { backgroundColor: sport.color }]}>
-                <Text style={styles.cardText}>{sport.name}</Text>
-              </View>
-            </ImageBackground>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+
+      <BottomNavBar />
+    </>
   );
 }
 
