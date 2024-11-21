@@ -30,7 +30,7 @@ export default function MainNavigator() {
         <Stack.Screen
           name="DetailsEvent"
           component={DetailsEventScreen}
-          options={{ headerShown: true, title: "Event Details" }}
+          options={{ headerShown: true, title: "Detalhes do Evento" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

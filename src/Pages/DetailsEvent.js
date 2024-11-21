@@ -2,32 +2,43 @@ import React from "react";
 import {
   View,
   Text,
-  Image,
+  ImageBackground,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
 import BottomNavBar from "../Components/BottomNavBar";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+const screenWidth = Dimensions.get("window").width;
 
 export default function DetailsScreen() {
   return (
     <>
       <ScrollView style={styles.container}>
-        <View style={styles.header}>
-          <TouchableOpacity>
-            <Text style={styles.backButton}>{"<"}</Text>
-          </TouchableOpacity>
-          <Text style={styles.menuButton}>⋮</Text>
-        </View>
-        <View style={styles.card}>
-          <Text style={styles.title}>Judô - ring y</Text>
-          <Image
-            source={{
-              uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
-            }}
-            style={styles.image}
-          />
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Evento</Text>
+          <View style={styles.suggestionCard}>
+            <ImageBackground
+              source={{
+                uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
+              }}
+              style={styles.imageBackground}
+              imageStyle={styles.imageStyle}
+            >
+              <View style={styles.cardContent}>
+                <Text style={styles.cardText}>Judô - ring y</Text>
+                <Ionicons
+                  name="heart-outline"
+                  size={20}
+                  color="white"
+                  style={styles.heartIcon}
+                />
+              </View>
+            </ImageBackground>
+          </View>
         </View>
         <Text style={styles.monthText}>Dezembro 2021</Text>
         <Calendar
@@ -48,26 +59,24 @@ export default function DetailsScreen() {
               selectedColor: "#8B0000",
             },
           }}
-          dayComponent={({ date, state }) => {
-            return (
-              <View
+          dayComponent={({ date, state }) => (
+            <View
+              style={[
+                styles.dayContainer,
+                date.day === 18 && styles.selectedDay,
+              ]}
+            >
+              <Text
                 style={[
-                  styles.dayContainer,
-                  date.day === 18 && styles.selectedDay,
+                  styles.dayText,
+                  state === "disabled" ? styles.disabledDayText : null,
+                  date.day === 18 ? styles.selectedDayText : null,
                 ]}
               >
-                <Text
-                  style={[
-                    styles.dayText,
-                    state === "disabled" ? styles.disabledDayText : null,
-                    date.day === 18 ? styles.selectedDayText : null,
-                  ]}
-                >
-                  {date.day}
-                </Text>
-              </View>
-            );
-          }}
+                {date.day}
+              </Text>
+            </View>
+          )}
         />
         <TouchableOpacity style={styles.dateButton}>
           <Text style={styles.dateButtonText}>DIA 18/12 às 7:00 PM</Text>
@@ -86,39 +95,46 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F5F5",
     paddingHorizontal: 20,
-    marginVertical: 40,
+    marginTop: 50,
+    marginBottom: 70,
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginVertical: 10,
-  },
-  backButton: {
-    fontSize: 20,
-    color: "#000",
-  },
-  menuButton: {
-    fontSize: 20,
-    color: "#000",
-  },
-  card: {
-    backgroundColor: "#8B0000",
-    borderRadius: 15,
-    padding: 20,
+  section: {
     marginBottom: 20,
-    alignItems: "center",
   },
-  title: {
-    color: "#fff",
+  sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#000",
     marginBottom: 10,
   },
-  image: {
-    width: "100%",
-    height: 100,
-    resizeMode: "contain",
+  suggestionCard: {
+    width: screenWidth * 0.9,
+    height: screenWidth * 0.5,
+    alignSelf: "center",
+    borderRadius: 15,
+    overflow: "hidden",
+    marginBottom: 15,
+  },
+  imageBackground: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+  imageStyle: {
+    resizeMode: "cover", // Mantém a proporção da imagem
+  },
+  cardContent: {
+    backgroundColor: "rgba(0, 0, 0, 0.4)", // Fundo semi-transparente para melhor legibilidade do texto
+    padding: 10,
+  },
+  cardText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  heartIcon: {
+    position: "absolute",
+    top: 10,
+    right: 10,
   },
   monthText: {
     fontSize: 16,
