@@ -6,6 +6,7 @@ import LoginScreen from "./src/Pages/Login";
 import SignupScreen from "./src/Pages/SignUp";
 import DetailsEventScreen from "./src/Pages/DetailsEvent";
 import SearchScreen from "./src/Pages/SearchScreen";
+import ProfileScreen from "./src/Pages/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,11 @@ export default function MainNavigator() {
           name="DetailsEvent"
           component={DetailsEventScreen}
           options={{ headerShown: true, title: "Detalhes do Evento" }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ headerShown: true, title: "Perdil do Usuário" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

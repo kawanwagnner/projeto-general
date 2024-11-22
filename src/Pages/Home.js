@@ -19,7 +19,7 @@ export default function App() {
         <Text style={styles.location}>R. Sílvio Coelho De Alverga, 165</Text>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Sugestões</Text>
+          <Text style={styles.sectionTitle}>Popular</Text>
           <View style={styles.suggestionCard}>
             <ImageBackground
               source={{
@@ -42,11 +42,11 @@ export default function App() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Favoritos</Text>
+          <Text style={styles.sectionTitle}>Destaques</Text>
 
           <View style={styles.favoriteCard}>
             <ImageBackground
-              source={{ uri: "https://via.placeholder.com/300x150" }} // Substitua pela URL da imagem do futsal
+              source={{ uri: "https://via.placeholder.com/300x150" }}
               style={styles.imageBackground}
               imageStyle={styles.cardImage}
             >
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     backgroundColor: "#F5F5F5",
     paddingTop: 60,
+    marginBottom: 50,
   },
   location: {
     fontSize: 16,

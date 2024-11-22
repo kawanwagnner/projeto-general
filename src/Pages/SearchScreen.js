@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F5F5",
+    marginBottom: 50,
   },
   header: {
     paddingHorizontal: 20,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: screenWidth * 0.45,
-    height: screenWidth * 0.45,
+    height: screenWidth * 0.3,
     borderRadius: 15,
     overflow: "hidden",
     marginBottom: 15,
