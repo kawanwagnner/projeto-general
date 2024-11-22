@@ -21,17 +21,17 @@ const sports = [
   {
     name: "Corrida",
     color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
+    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/jazz.png",
   },
   {
     name: "Yoga",
     color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
+    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/reggae.png",
   },
   {
     name: "Fit Dance",
     color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
+    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png",
   },
   {
     name: "Natação",
