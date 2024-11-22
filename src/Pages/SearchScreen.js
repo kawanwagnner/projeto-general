@@ -15,52 +15,52 @@ const screenWidth = Dimensions.get("window").width;
 const sports = [
   {
     name: "Futsal",
-    color: "#3A5F0B",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
+    color: "none",
+    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/Sertanejo.png",
   },
   {
     name: "Corrida",
-    color: "#E94E77",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
   {
     name: "Yoga",
-    color: "#FFC0CB",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
   {
     name: "Fit Dance",
-    color: "#FF69B4",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
   {
     name: "Natação",
-    color: "#4682B4",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
   {
     name: "Vôlei",
-    color: "#FFD700",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
   {
     name: "Basketball",
-    color: "#A0522D",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
   {
     name: "Ginástica",
-    color: "#2F4F4F",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
   {
     name: "Artes Marciais",
-    color: "#8B0000",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
   {
     name: "Hip Hop",
-    color: "#4B0082",
+    color: "none",
     uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
   },
 ];
@@ -80,9 +80,7 @@ export default function SearchScreen() {
                 style={styles.imageBackground}
                 imageStyle={styles.imageStyle}
               >
-                <View
-                  style={[styles.overlay, { backgroundColor: sport.color }]}
-                >
+                <View style={styles.overlay}>
                   <Text style={styles.cardText}>{sport.name}</Text>
                 </View>
               </ImageBackground>
@@ -133,18 +131,20 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "flex-end", // Ajustado para que a imagem e overlay fiquem no lugar certo
   },
   imageStyle: {
     resizeMode: "cover",
   },
   overlay: {
+    position: "absolute",
+    bottom: 0, // Coloca o overlay na parte inferior da imagem
+    left: 0,
     width: "100%",
-    height: "30%",
+    height: "100%", // Pode ajustar a altura conforme necessário
+    backgroundColor: "#00000060", // Cor de fundo preta com opacidade
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    bottom: 0,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
   },
