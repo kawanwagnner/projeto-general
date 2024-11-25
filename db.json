@@ -5,5 +5,27 @@
       "nome": "Kawan",
       "tel": "11 939060203"
     }
+  ],
+  "categories": [
+    {
+      "name": "Sertanejo",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/Sertanejo.png"
+    },
+    {
+      "name": "Jazz",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/jazz.png"
+    },
+    {
+      "name": "Reggae",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/reggae.png"
+    },
+    {
+      "name": "Eletrônica",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png"
+    }
   ]
 }

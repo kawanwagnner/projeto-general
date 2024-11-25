@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,64 +8,25 @@ import {
   Dimensions,
   ImageBackground,
 } from "react-native";
+import axios from "axios";
 import BottomNavBar from "../Components/BottomNavBar";
 
 const screenWidth = Dimensions.get("window").width;
 
-const sports = [
-  {
-    name: "Futsal",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/Sertanejo.png",
-  },
-  {
-    name: "Corrida",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/jazz.png",
-  },
-  {
-    name: "Yoga",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/reggae.png",
-  },
-  {
-    name: "Fit Dance",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png",
-  },
-  {
-    name: "Natação",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
-  },
-  {
-    name: "Vôlei",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
-  },
-  {
-    name: "Basketball",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
-  },
-  {
-    name: "Ginástica",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
-  },
-  {
-    name: "Artes Marciais",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
-  },
-  {
-    name: "Hip Hop",
-    color: "none",
-    uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
-  },
-];
-
 export default function SearchScreen() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/categories")
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar dados:", error);
+      });
+  }, []);
+
   return (
     <>
       <View style={styles.container}>
@@ -73,7 +34,7 @@ export default function SearchScreen() {
           <Text style={styles.headerText}>Esportes disponíveis</Text>
         </View>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {sports.map((sport, index) => (
+          {categories.map((sport, index) => (
             <TouchableOpacity key={index} style={styles.card}>
               <ImageBackground
                 source={{ uri: sport.uri }}
@@ -131,18 +92,18 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    justifyContent: "flex-end", // Ajustado para que a imagem e overlay fiquem no lugar certo
+    justifyContent: "flex-end",
   },
   imageStyle: {
     resizeMode: "cover",
   },
   overlay: {
     position: "absolute",
-    bottom: 0, // Coloca o overlay na parte inferior da imagem
+    bottom: 0,
     left: 0,
     width: "100%",
-    height: "100%", // Pode ajustar a altura conforme necessário
-    backgroundColor: "#00000060", // Cor de fundo preta com opacidade
+    height: "100%",
+    backgroundColor: "#00000060",
     justifyContent: "center",
     alignItems: "center",
     borderBottomLeftRadius: 15,
