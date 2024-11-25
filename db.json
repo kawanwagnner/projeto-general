@@ -27,5 +27,31 @@
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png"
     }
+  ],
+  "destaques": [
+    {
+      "name": "Eletrônica - DJ Sabô",
+      "date": "21/11/2024",
+      "time": "22:00",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png"
+    },
+    {
+      "name": "Jazz Night - Banda Smooth",
+      "date": "23/11/2024",
+      "time": "20:30",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/jazz.png"
+    },
+    {
+      "name": "Reggae Vibes - Marley Sons",
+      "date": "25/11/2024",
+      "time": "19:00",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/reggae.png"
+    }
+  ],
+  "populares": [
+    {
+      "name": "Eletrônica - DJ Sabô",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png"
+    }
   ]
 }
