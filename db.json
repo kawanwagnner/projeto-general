@@ -1,11 +1,4 @@
 {
-  "agenda": [
-    {
-      "id": "c96c",
-      "nome": "Kawan",
-      "tel": "11 939060203"
-    }
-  ],
   "categories": [
     {
       "name": "Sertanejo",
@@ -26,6 +19,31 @@
       "name": "Eletrônica",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png"
+    },
+    {
+      "name": "Rock",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/rock.png"
+    },
+    {
+      "name": "Gospel",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/gospel.png"
+    },
+    {
+      "name": "Pagode",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/pagode.png"
+    },
+    {
+      "name": "Pop",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/pop.png"
+    },
+    {
+      "name": "Hip-Hop",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/hip-hop.png"
     }
   ],
   "destaques": [

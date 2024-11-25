@@ -16,6 +16,7 @@ const screenWidth = Dimensions.get("window").width;
 export default function HomeScreen() {
   const [categories, setCategories] = useState([]);
   const [destaques, setDestaques] = useState([]);
+  const [populares, setPopulares] = useState([]);
 
   // Fetch data on component mount
   useEffect(() => {
@@ -28,6 +29,11 @@ export default function HomeScreen() {
       .get("http://localhost:3000/destaques")
       .then((response) => setDestaques(response.data))
       .catch((error) => console.error("Erro ao buscar destaques:", error));
+
+    axios
+      .get("http://localhost:3000/populares")
+      .then((response) => setPopulares(response.data))
+      .catch((error) => console.error("Erro ao buscar populares:", error));
   }, []);
 
   return (
@@ -37,16 +43,16 @@ export default function HomeScreen() {
 
         {/* Popular Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Popular</Text>
-          {categories.map((category, index) => (
+          <Text style={styles.sectionTitle}>Populares</Text>
+          {populares.map((popular, index) => (
             <View key={index} style={styles.suggestionCard}>
               <ImageBackground
-                source={{ uri: category.uri }}
+                source={{ uri: popular.uri }}
                 style={styles.imageBackground}
                 imageStyle={styles.cardImage}
               >
                 <View style={styles.cardContent}>
-                  <Text style={styles.cardText}>{category.name}</Text>
+                  <Text style={styles.cardText}>{popular.name}</Text>
                   <Ionicons
                     name="heart-outline"
                     size={20}
