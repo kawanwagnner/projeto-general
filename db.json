@@ -44,6 +44,11 @@
       "name": "Hip-Hop",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/hip-hop.png"
+    },
+    {
+      "name": "Rhythm and Blues (R&B)",
+      "color": "none",
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/r&b.png"
     }
   ],
   "destaques": [
