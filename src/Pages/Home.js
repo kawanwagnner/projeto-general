@@ -6,10 +6,12 @@ import {
   ImageBackground,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import BottomNavBar from "../Components/BottomNavBar";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -17,6 +19,7 @@ export default function HomeScreen() {
   const [categories, setCategories] = useState([]);
   const [destaques, setDestaques] = useState([]);
   const [populares, setPopulares] = useState([]);
+  const navigation = useNavigation();
 
   // Fetch data on component mount
   useEffect(() => {
@@ -44,28 +47,40 @@ export default function HomeScreen() {
         {/* Popular Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Populares</Text>
-          {populares.map((popular, index) => (
-            <View key={index} style={styles.suggestionCard}>
-              <ImageBackground
-                source={{ uri: popular.uri }}
-                style={styles.imageBackground}
-                imageStyle={styles.cardImage}
+          {populares &&
+            populares.length > 0 &&
+            populares.map((popular, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.suggestionCard}
+                onPress={() =>
+                  navigation.navigate("DetailsEvent", { event: popular })
+                }
               >
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardText}>{popular.name}</Text>
-                  <Text style={styles.cardSubtext}>
-                    {popular.date} às {popular.time}
-                  </Text>
-                  <Ionicons
-                    name="flame-outline"
-                    size={20}
-                    color="orange"
-                    style={styles.heartIcon}
-                  />
-                </View>
-              </ImageBackground>
-            </View>
-          ))}
+                <ImageBackground
+                  source={
+                    popular.uri
+                      ? { uri: popular.uri }
+                      : require("../../assets/404.png")
+                  }
+                  style={styles.imageBackground}
+                  imageStyle={styles.cardImage}
+                >
+                  <View style={styles.cardContent}>
+                    <Text style={styles.cardText}>{popular.name}</Text>
+                    <Text style={styles.cardSubtext}>
+                      {popular.date} às {popular.time}
+                    </Text>
+                    <Ionicons
+                      name="flame-outline"
+                      size={20}
+                      color="orange"
+                      style={styles.heartIcon}
+                    />
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            ))}
         </View>
 
         {/* Destaques Section */}

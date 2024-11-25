@@ -11,10 +11,33 @@ import {
 import { Calendar } from "react-native-calendars";
 import BottomNavBar from "../Components/BottomNavBar";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useRoute, useNavigation } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 
 export default function DetailsScreen() {
+  const route = useRoute();
+  const navigation = useNavigation();
+  const { event } = route.params || {}; // Garante que `event` não será undefined
+
+  if (!event) {
+    // Mostra uma mensagem se o evento não foi passado
+    return (
+      <View style={styles.noEventContainer}>
+        <Text style={styles.noEventText}>
+          Nenhum evento selecionado. Por favor, volte para a Home e escolha um
+          evento.
+        </Text>
+        <TouchableOpacity
+          style={styles.goHomeButton}
+          onPress={() => navigation.navigate("Home")}
+        >
+          <Text style={styles.goHomeButtonText}>Ir para a Home</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <>
       <ScrollView style={styles.container}>
@@ -23,13 +46,13 @@ export default function DetailsScreen() {
           <View style={styles.suggestionCard}>
             <ImageBackground
               source={{
-                uri: "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/judo.png",
+                uri: event.uri, // Imagem do evento recebido
               }}
               style={styles.imageBackground}
               imageStyle={styles.imageStyle}
             >
               <View style={styles.cardContent}>
-                <Text style={styles.cardText}>Judô - ring y</Text>
+                <Text style={styles.cardText}>{event.name}</Text>
                 <Ionicons
                   name="heart-outline"
                   size={20}
@@ -40,7 +63,7 @@ export default function DetailsScreen() {
             </ImageBackground>
           </View>
         </View>
-        <Text style={styles.monthText}>Dezembro 2021</Text>
+        <Text style={styles.monthText}>Confirme as Informações</Text>
         <Calendar
           style={styles.calendar}
           theme={{
@@ -53,36 +76,20 @@ export default function DetailsScreen() {
             textDayStyle: styles.dayText,
           }}
           markedDates={{
-            "2021-12-18": {
+            [event.date]: {
               selected: true,
               marked: true,
               selectedColor: "#8B0000",
             },
           }}
-          dayComponent={({ date, state }) => (
-            <View
-              style={[
-                styles.dayContainer,
-                date.day === 18 && styles.selectedDay,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.dayText,
-                  state === "disabled" ? styles.disabledDayText : null,
-                  date.day === 18 ? styles.selectedDayText : null,
-                ]}
-              >
-                {date.day}
-              </Text>
-            </View>
-          )}
         />
         <TouchableOpacity style={styles.dateButton}>
-          <Text style={styles.dateButtonText}>DIA 18/12 às 7:00 PM</Text>
+          <Text style={styles.dateButtonText}>
+            DIA {event.date} às {event.time}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.infoButton}>
-          <Text style={styles.infoButtonText}>MAIS INFORMAÇÕES ›</Text>
+          <Text style={styles.infoButtonText}>Pegar meu ingresso ›</Text>
         </TouchableOpacity>
       </ScrollView>
       <BottomNavBar />
@@ -97,6 +104,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 50,
     marginBottom: 70,
+  },
+  noEventContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  noEventText: {
+    fontSize: 18,
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#333",
+  },
+  goHomeButton: {
+    backgroundColor: "#8B0000",
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+  },
+  goHomeButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
   section: {
     marginBottom: 20,
@@ -120,10 +149,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   imageStyle: {
-    resizeMode: "cover", // Mantém a proporção da imagem
+    resizeMode: "cover",
   },
   cardContent: {
-    backgroundColor: "rgba(0, 0, 0, 0.4)", // Fundo semi-transparente para melhor legibilidade do texto
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
     padding: 10,
   },
   cardText: {
@@ -147,28 +176,6 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 10,
     marginVertical: 10,
-  },
-  dayContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  dayText: {
-    fontSize: 16,
-    color: "#000",
-  },
-  disabledDayText: {
-    color: "#d9e1e8",
-  },
-  selectedDay: {
-    backgroundColor: "#8B0000",
-    borderRadius: 20,
-  },
-  selectedDayText: {
-    color: "#fff",
-    fontWeight: "bold",
   },
   dateButton: {
     backgroundColor: "#fff",
@@ -195,5 +202,6 @@ const styles = StyleSheet.create({
   infoButtonText: {
     color: "#fff",
     fontWeight: "bold",
+    textTransform: "uppercase",
   },
 });
