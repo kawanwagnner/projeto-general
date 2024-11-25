@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import {
   View,
@@ -8,82 +9,87 @@ import {
   Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { ScrollView } from "react-native-web";
 
 export default function LoginScreen() {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
-      {/* Logo */}
-      <View style={styles.logoContainer}>
-        <Image
-          source={require("../../assets/splash.png")}
-          style={styles.logo}
+    <ScrollView>
+      <View style={styles.container}>
+        {/* Logo */}
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../../assets/splash.png")}
+            style={styles.logo}
+          />
+          <Text style={styles.title}>SPORTIVO</Text>
+          <Text style={styles.subtitle}>
+            Seu aplicativo de práticas esportivas
+          </Text>
+        </View>
+
+        {/* Campos de Login */}
+        <TextInput
+          style={styles.input}
+          placeholder="Usuário"
+          placeholderTextColor="#AAA"
         />
-        <Text style={styles.title}>SPORTIVO</Text>
-        <Text style={styles.subtitle}>
-          Seu aplicativo de práticas esportivas
-        </Text>
-      </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          placeholderTextColor="#AAA"
+          secureTextEntry
+        />
 
-      {/* Campos de Login */}
-      <TextInput
-        style={styles.input}
-        placeholder="Usuário"
-        placeholderTextColor="#AAA"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        placeholderTextColor="#AAA"
-        secureTextEntry
-      />
-
-      {/* Botão Esquecer Senha e Entrar */}
-      <View style={styles.actionContainer}>
-        <TouchableOpacity>
-          <Text style={styles.forgotText}>Esqueceu a senha?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Entrar {">"}</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Linha Divisória */}
-      <View style={styles.dividerContainer}>
-        <View style={styles.divider} />
-        <Text style={styles.dividerText}>ou</Text>
-        <View style={styles.divider} />
-      </View>
-
-      {/* Botões de Login Social */}
-      <View style={styles.socialContainer}>
-        <TouchableOpacity style={[styles.socialButton, styles.googleButton]}>
-          <Icon name="google" size={20} color="#FFF" />
-          <Text style={styles.socialButtonText}>Google</Text>
-        </TouchableOpacity>
-        <View style={styles.socialRow}>
-          <TouchableOpacity
-            style={[styles.socialButton, styles.linkedinButton]}
-          >
-            <Icon name="linkedin" size={20} color="#FFF" />
-            <Text style={styles.socialButtonText}>LinkedIn</Text>
+        {/* Botão Esquecer Senha e Entrar */}
+        <View style={styles.actionContainer}>
+          <TouchableOpacity>
+            <Text style={styles.forgotText}>Esqueceu a senha?</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.socialButton, styles.instagramButton]}
-          >
-            <Icon name="instagram" size={20} color="#FFF" />
-            <Text style={styles.socialButtonText}>Instagram</Text>
+          <TouchableOpacity style={styles.loginButton}>
+            <Text style={styles.loginButtonText}>Entrar {">"}</Text>
           </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Link de Cadastro */}
-      <TouchableOpacity>
-        <Text style={styles.signupText}>
-          Não tem uma conta ainda?{" "}
-          <Text style={styles.signupLink}>Cadastre-se</Text>
-        </Text>
-      </TouchableOpacity>
-    </View>
+        {/* Linha Divisória */}
+        <View style={styles.dividerContainer}>
+          <View style={styles.divider} />
+          <Text style={styles.dividerText}>ou</Text>
+          <View style={styles.divider} />
+        </View>
+
+        {/* Botões de Login Social */}
+        <View style={styles.socialContainer}>
+          <TouchableOpacity style={[styles.socialButton, styles.googleButton]}>
+            <Icon name="google" size={20} color="#FFF" />
+            <Text style={styles.socialButtonText}>Google</Text>
+          </TouchableOpacity>
+          <View style={styles.socialRow}>
+            <TouchableOpacity
+              style={[styles.socialButton, styles.linkedinButton]}
+            >
+              <Icon name="linkedin" size={20} color="#FFF" />
+              <Text style={styles.socialButtonText}>LinkedIn</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.socialButton, styles.instagramButton]}
+            >
+              <Icon name="instagram" size={20} color="#FFF" />
+              <Text style={styles.socialButtonText}>Instagram</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Link de Cadastro */}
+        <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+          <Text style={styles.signupText}>
+            Não tem uma conta ainda?{" "}
+            <Text style={styles.signupLink}>Cadastre-se</Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -96,6 +102,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 40,
     paddingBottom: 40,
+    marginBottom: 50,
   },
   logoContainer: {
     alignItems: "center",

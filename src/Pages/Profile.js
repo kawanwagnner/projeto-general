@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Dimensions,
 } from "react-native";
 import BottomNavBar from "../Components/BottomNavBar";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ProfileScreen() {
+  const navigation = useNavigation();
+
   return (
     <>
       <ScrollView style={styles.container}>
@@ -50,7 +52,10 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.logoutButton}>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Ionicons name="log-out-outline" size={24} color="#FFFFFF" />
           <Text style={styles.logoutText}>Sair da conta</Text>
         </TouchableOpacity>

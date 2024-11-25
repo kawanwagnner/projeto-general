@@ -10,8 +10,11 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import BottomNavBar from "../Components/BottomNavBar";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SignupScreen() {
+  const navigation = useNavigation();
+
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
@@ -86,7 +89,7 @@ export default function SignupScreen() {
         </View>
 
         {/* Link para Login */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text style={styles.loginText}>
             Já tem uma conta? <Text style={styles.loginLink}>Entrar</Text>
           </Text>
@@ -107,6 +110,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 40,
     paddingBottom: 40,
+    marginBottom: 50,
   },
   logoContainer: {
     alignItems: "center",

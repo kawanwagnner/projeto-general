@@ -53,10 +53,13 @@ export default function HomeScreen() {
               >
                 <View style={styles.cardContent}>
                   <Text style={styles.cardText}>{popular.name}</Text>
+                  <Text style={styles.cardSubtext}>
+                    {popular.date} às {popular.time}
+                  </Text>
                   <Ionicons
-                    name="heart-outline"
+                    name="flame-outline"
                     size={20}
-                    color="white"
+                    color="orange"
                     style={styles.heartIcon}
                   />
                 </View>
