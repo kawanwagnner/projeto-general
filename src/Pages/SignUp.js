@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer, useState } from "react";
 import {
   View,
   Text,
@@ -7,13 +7,114 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import BottomNavBar from "../Components/BottomNavBar";
 import { useNavigation } from "@react-navigation/native";
 
+// Estado inicial do formulário
+const initialState = {
+  name: "",
+  usuario: "",
+  email: "", // Novo campo para email
+  password: "",
+};
+
+// Redutor para gerenciar o estado do formulário
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SET_FIELD":
+      return { ...state, [action.field]: action.value };
+    case "RESET":
+      return initialState;
+    default:
+      return state;
+  }
+};
+
 export default function SignupScreen() {
   const navigation = useNavigation();
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+
+  const handleSignup = async () => {
+    const { name, usuario, email, password } = state;
+
+    // Verificação para garantir que o estado está correto
+    console.log("Estado antes de enviar:", state);
+
+    // Validações
+    if (!name || !usuario || !email || !password) {
+      setMessage("Todos os campos são obrigatórios.");
+      setMessageType("error");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      // Validação de email
+      setMessage("Por favor, insira um email válido.");
+      setMessageType("error");
+      return;
+    }
+    if (password.length < 6) {
+      setMessage("A senha deve ter pelo menos 6 caracteres.");
+      setMessageType("error");
+      return;
+    }
+
+    setLoading(true);
+    setMessage(""); // Limpar mensagem antes de tentar cadastrar
+    setMessageType("");
+
+    try {
+      // Verificar se o nome de usuário já está em uso
+      const checkResponse = await fetch(
+        `http://localhost:3000/users?usuario=${usuario}`
+      );
+      const existingUsers = await checkResponse.json();
+
+      if (existingUsers.length > 0) {
+        setLoading(false);
+        setMessage("Este nome de usuário já está em uso.");
+        setMessageType("error");
+        return;
+      }
+
+      // Cadastrar novo usuário com email e data de criação
+      const response = await fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          usuario: usuario,
+          email: email, // Enviando email
+          password: password,
+          createdAt: new Date().toISOString(), // Data de criação
+          "photo-user": "none",
+        }),
+      });
+
+      if (response.ok) {
+        setMessage("Cadastro realizado com sucesso!");
+        setMessageType("success");
+        dispatch({ type: "RESET" });
+        setTimeout(() => {
+          navigation.navigate("Login");
+        }, 2000); // Redireciona após 2 segundos
+      } else {
+        setMessage("Erro ao realizar o cadastro.");
+        setMessageType("error");
+      }
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+      setMessage("Erro de conexão.");
+      setMessageType("error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -29,33 +130,63 @@ export default function SignupScreen() {
         </View>
 
         {/* Campos de Cadastro */}
-        <TextInput
-          style={styles.input}
-          placeholder="Nome"
-          placeholderTextColor="#AAA"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Usuário"
-          placeholderTextColor="#AAA"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          placeholderTextColor="#AAA"
-          secureTextEntry
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirmar Senha"
-          placeholderTextColor="#AAA"
-          secureTextEntry
-        />
+        {["Nome", "Usuário", "Email", "Senha"].map((placeholder, index) => {
+          let fieldName;
+          if (placeholder === "Nome") {
+            fieldName = "name";
+          } else if (placeholder === "Usuário") {
+            fieldName = "usuario";
+          } else if (placeholder === "Email") {
+            fieldName = "email"; // Para o campo email
+          } else if (placeholder === "Senha") {
+            fieldName = "password";
+          }
+
+          return (
+            <TextInput
+              key={index}
+              style={styles.input}
+              placeholder={placeholder}
+              placeholderTextColor="#AAA"
+              secureTextEntry={placeholder === "Senha"}
+              value={state[fieldName]} // Referencia corretamente os campos do estado
+              onChangeText={(value) =>
+                dispatch({
+                  type: "SET_FIELD",
+                  field: fieldName, // Passa o nome correto do campo para o reducer
+                  value,
+                })
+              }
+            />
+          );
+        })}
+
+        {/* Mensagem de Erro ou Sucesso */}
+        {message ? (
+          <View
+            style={[
+              styles.messageContainer,
+              messageType === "error"
+                ? styles.errorMessage
+                : styles.successMessage,
+            ]}
+          >
+            <Text style={styles.messageText}>{message}</Text>
+          </View>
+        ) : null}
 
         {/* Botão de Cadastro */}
         <View style={styles.actionContainer}>
-          <TouchableOpacity style={styles.signupButton}>
-            <Text style={styles.signupButtonText}>Cadastrar &gt;</Text>
+          <TouchableOpacity
+            style={styles.signupButton}
+            onPress={handleSignup}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#FFF" />
+            ) : (
+              <Text style={styles.signupButtonText}>Cadastrar &gt;</Text>
+            )}
           </TouchableOpacity>
         </View>
 
@@ -68,24 +199,19 @@ export default function SignupScreen() {
 
         {/* Botões de Cadastro Social */}
         <View style={styles.socialContainer}>
-          <TouchableOpacity style={[styles.socialButton, styles.googleButton]}>
-            <Icon name="google" size={20} color="#FFF" />
-            <Text style={styles.socialButtonText}>Google</Text>
-          </TouchableOpacity>
-          <View style={styles.socialRow}>
+          {[
+            { name: "Google", icon: "google", color: "#DB4437" },
+            { name: "LinkedIn", icon: "linkedin", color: "#0077B5" },
+            { name: "Instagram", icon: "instagram", color: "#E4405F" },
+          ].map((social, index) => (
             <TouchableOpacity
-              style={[styles.socialButton, styles.linkedinButton]}
+              key={index}
+              style={[styles.socialButton, { backgroundColor: social.color }]}
             >
-              <Icon name="linkedin" size={20} color="#FFF" />
-              <Text style={styles.socialButtonText}>LinkedIn</Text>
+              <Icon name={social.icon} size={20} color="#FFF" />
+              <Text style={styles.socialButtonText}>{social.name}</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.socialButton, styles.instagramButton]}
-            >
-              <Icon name="instagram" size={20} color="#FFF" />
-              <Text style={styles.socialButtonText}>Instagram</Text>
-            </TouchableOpacity>
-          </View>
+          ))}
         </View>
 
         {/* Link para Login */}
@@ -95,7 +221,6 @@ export default function SignupScreen() {
           </Text>
         </TouchableOpacity>
       </ScrollView>
-
       <BottomNavBar />
     </>
   );
@@ -156,6 +281,22 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontWeight: "bold",
   },
+  messageContainer: {
+    marginVertical: 1,
+    padding: 10,
+    borderRadius: 8,
+    width: "100%",
+    alignItems: "center",
+  },
+  successMessage: {
+    color: "#4CAF50",
+  },
+  errorMessage: {
+    color: "#FF3B30",
+  },
+  messageText: {
+    fontWeight: "bold",
+  },
   dividerContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -186,25 +327,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginVertical: 5,
     width: "100%",
-  },
-  socialRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 10,
-  },
-  googleButton: {
-    backgroundColor: "#DB4437",
-  },
-  linkedinButton: {
-    backgroundColor: "#0077B5",
-    flex: 1,
-    marginRight: 5,
-  },
-  instagramButton: {
-    backgroundColor: "#E4405F",
-    flex: 1,
-    marginLeft: 5,
   },
   socialButtonText: {
     color: "#FFF",

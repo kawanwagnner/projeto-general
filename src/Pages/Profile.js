@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,23 +10,63 @@ import {
 import BottomNavBar from "../Components/BottomNavBar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Importando AsyncStorage
 
 export default function ProfileScreen() {
+  const [userData, setUserData] = useState(null);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    // Função para carregar os dados do usuário armazenados no AsyncStorage
+    const loadUserData = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("userData");
+        if (userData) {
+          setUserData(JSON.parse(userData)); // Parseia os dados JSON armazenados
+        }
+      } catch (error) {
+        console.error("Erro ao carregar os dados do usuário:", error);
+      }
+    };
+
+    loadUserData(); // Carregar dados assim que a tela for montada
+  }, []);
+
+  if (!userData) {
+    // Exibe uma tela de carregamento ou mensagem caso não tenha dados
+    return (
+      <View style={styles.container}>
+        <Text>Carregando dados do usuário...</Text>
+      </View>
+    );
+  }
+
+  // Função para formatar a data
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Janeiro é 0, então somamos 1
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <>
       <ScrollView style={styles.container}>
         <View style={styles.header}>
+          {/* Foto de perfil */}
           <Image
             source={require("../../assets/profile.png")}
             style={styles.profileImage}
           />
           <View style={styles.profileInfo}>
-            <Text style={styles.name}>Fernando</Text>
-            <Text style={styles.lastName}>Dias</Text>
-            <Text style={styles.activityText}>Tempo de atividade</Text>
-            <Text style={styles.activityCount}>entrou em 2024</Text>
+            {/* Exibindo os dados do usuário */}
+            <Text style={styles.name}>{userData.name}</Text>
+            <Text style={styles.lastName}>{userData.surname}</Text>
+            <Text style={styles.activityText}>{userData.email}</Text>
+            <Text style={styles.activityCount}>
+              Entrou em {formatDate(userData.createdAt)}
+            </Text>
           </View>
         </View>
 
@@ -54,7 +94,12 @@ export default function ProfileScreen() {
 
         <TouchableOpacity
           style={styles.logoutButton}
-          onPress={() => navigation.navigate("Login")}
+          onPress={async () => {
+            // Limpar dados de login ao sair
+            await AsyncStorage.removeItem("userToken");
+            await AsyncStorage.removeItem("userData");
+            navigation.navigate("Login"); // Redireciona para a tela de login
+          }}
         >
           <Ionicons name="log-out-outline" size={24} color="#FFFFFF" />
           <Text style={styles.logoutText}>Sair da conta</Text>

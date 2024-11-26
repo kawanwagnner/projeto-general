@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,9 +10,52 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { ScrollView } from "react-native-web";
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Importando AsyncStorage
 
 export default function LoginScreen() {
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigation = useNavigation();
+
+  const handleLogin = async () => {
+    setError(""); // Limpa a mensagem de erro antes de tentar fazer login
+
+    // Valida os campos
+    if (!usuario || !password) {
+      setError("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/users");
+      const users = await response.json();
+
+      const foundUser = users.find(
+        (user) => user.usuario === usuario && user.password === password
+      );
+
+      if (foundUser) {
+        // Salvar dados do usuário no AsyncStorage
+        try {
+          await AsyncStorage.setItem("userToken", "authenticated"); // Armazena o token de autenticação
+          await AsyncStorage.setItem("userData", JSON.stringify(foundUser)); // Armazena os dados do usuário (como nome, email, etc.)
+        } catch (error) {
+          console.error("Erro ao salvar no AsyncStorage:", error);
+          setError("Erro ao armazenar dados de login.");
+          return;
+        }
+
+        // Navegar para a tela Home
+        navigation.navigate("Home");
+      } else {
+        setError("Usuário ou password inválidos");
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      setError("Erro ao verificar as credenciais. Tente novamente.");
+    }
+  };
 
   return (
     <ScrollView>
@@ -34,20 +77,26 @@ export default function LoginScreen() {
           style={styles.input}
           placeholder="Usuário"
           placeholderTextColor="#AAA"
+          value={usuario}
+          onChangeText={setUsuario}
         />
         <TextInput
           style={styles.input}
-          placeholder="Senha"
+          placeholder="Password"
           placeholderTextColor="#AAA"
           secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
 
-        {/* Botão Esquecer Senha e Entrar */}
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+        {/* Botão Esquecer Password e Entrar */}
         <View style={styles.actionContainer}>
           <TouchableOpacity>
-            <Text style={styles.forgotText}>Esqueceu a senha?</Text>
+            <Text style={styles.forgotText}>Esqueceu a password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Entrar {">"}</Text>
           </TouchableOpacity>
         </View>
@@ -81,7 +130,6 @@ export default function LoginScreen() {
           </View>
         </View>
 
-        {/* Link de Cadastro */}
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
           <Text style={styles.signupText}>
             Não tem uma conta ainda?{" "}
@@ -217,5 +265,10 @@ const styles = StyleSheet.create({
   signupLink: {
     color: "#0056b3",
     fontWeight: "bold",
+  },
+  errorText: {
+    color: "#FF0000",
+    fontSize: 14,
+    marginVertical: 10,
   },
 });

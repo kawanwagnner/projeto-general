@@ -1,51 +1,61 @@
 {
   "categories": [
     {
+      "id": "4805",
       "name": "Sertanejo",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/Sertanejo.png"
     },
     {
+      "id": "c5ea",
       "name": "Jazz",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/jazz.png"
     },
     {
+      "id": "0218",
       "name": "Reggae",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/reggae.png"
     },
     {
+      "id": "fa84",
       "name": "Eletrônica",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png"
     },
     {
+      "id": "e803",
       "name": "Rock",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/rock.png"
     },
     {
+      "id": "0e4c",
       "name": "Gospel",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/gospel.png"
     },
     {
+      "id": "69eb",
       "name": "Pagode",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/pagode.png"
     },
     {
+      "id": "2c7b",
       "name": "Pop",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/pop.png"
     },
     {
+      "id": "5ae3",
       "name": "Hip-Hop",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/hip-hop.png"
     },
     {
+      "id": "76dc",
       "name": "Rhythm and Blues (R&B)",
       "color": "none",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/r&b.png"
@@ -53,18 +63,21 @@
   ],
   "destaques": [
     {
+      "id": "3d9d",
       "name": "Eletrônica - DJ Sabô",
       "date": "21/11/2024",
       "time": "22:00",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png"
     },
     {
+      "id": "8473",
       "name": "Jazz Night - Banda Smooth",
       "date": "23/11/2024",
       "time": "20:30",
       "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/jazz.png"
     },
     {
+      "id": "54de",
       "name": "Reggae Vibes - Marley Sons",
       "date": "25/11/2024",
       "time": "19:00",
@@ -76,7 +89,28 @@
       "name": "Eletrônica - DJ Sabô",
       "date": "21/11/2024",
       "time": "22:00",
-      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png"
+      "uri": "https://raw.githubusercontent.com/kawanwagnner/projeto-general/refs/heads/main/assets/eletronica.png",
+      "id": "6f4e"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Kawan",
+      "usuario": "kawan_wg",
+      "email": "kawan7@gmail.com",
+      "password": "123456789",
+      "photo-user": "none",
+      "createdAt": "2024-11-26T19:32:22.341Z"
+    },
+    {
+      "id": "87c1",
+      "name": "Kawan Wagnner",
+      "usuario": "kkawan_kk",
+      "email": "kawan@gmail.com",
+      "password": "123456",
+      "createdAt": "2024-11-26T19:32:22.341Z",
+      "photo-user": "none"
     }
   ]
 }

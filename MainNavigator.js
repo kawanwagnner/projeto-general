@@ -7,13 +7,14 @@ import SignupScreen from "./src/Pages/SignUp";
 import DetailsEventScreen from "./src/Pages/DetailsEvent";
 import SearchScreen from "./src/Pages/SearchScreen";
 import ProfileScreen from "./src/Pages/Profile";
+import TicketsScreen from "./src/Pages/Tickets";
 
 const Stack = createNativeStackNavigator();
 
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Tickets">
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -42,7 +43,12 @@ export default function MainNavigator() {
         <Stack.Screen
           name="Profile"
           component={ProfileScreen}
-          options={{ headerShown: true, title: "Perdil do Usuário" }}
+          options={{ headerShown: true, title: "Perfil do Usuário" }}
+        />
+        <Stack.Screen
+          name="Tickets"
+          component={TicketsScreen}
+          options={{ headerShown: true, title: "Lista de Tickets" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
