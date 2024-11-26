@@ -42,7 +42,9 @@ export default function HomeScreen() {
   return (
     <>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.location}>R. Sílvio Coelho De Alverga, 165</Text>
+        <Text style={styles.location}>
+          Rock – Parque Olímpico – Barra da Tijuca, RJ
+        </Text>
 
         {/* Popular Section */}
         <View style={styles.section}>
@@ -84,12 +86,23 @@ export default function HomeScreen() {
         </View>
 
         {/* Destaques Section */}
+        {/* Destaques Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Destaques</Text>
           {destaques.map((destaque, index) => (
-            <View key={index} style={styles.favoriteCard}>
+            <TouchableOpacity
+              key={index}
+              style={styles.favoriteCard}
+              onPress={() =>
+                navigation.navigate("DetailsEvent", { event: destaque })
+              }
+            >
               <ImageBackground
-                source={{ uri: destaque.uri }}
+                source={
+                  destaque.uri
+                    ? { uri: destaque.uri }
+                    : require("../../assets/404.png")
+                }
                 style={styles.imageBackground}
                 imageStyle={styles.cardImage}
               >
@@ -100,7 +113,7 @@ export default function HomeScreen() {
                   </Text>
                 </View>
               </ImageBackground>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
