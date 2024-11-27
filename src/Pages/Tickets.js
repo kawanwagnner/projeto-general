@@ -1,10 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const screenWidth = Dimensions.get("window").width;
 
-export default function TicketCard() {
+export default function TicketList() {
+  const [tickets, setTickets] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadUserTickets = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("userData");
+        if (userData) {
+          const parsedUserData = JSON.parse(userData);
+          const userId = parsedUserData.id;
+
+          // Carregar os tickets do usuário
+          const response = await axios.get(
+            `http://localhost:3000/users/${userId}`
+          );
+          setTickets(response.data.tickets || []);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar os tickets:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserTickets();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Carregando os tickets...</Text>
+      </View>
+    );
+  }
+
+  return (
+    <ScrollView style={styles.container}>
+      {tickets.length > 0 ? (
+        tickets.map((ticket, index) => (
+          <TicketCard key={index} ticket={ticket} />
+        ))
+      ) : (
+        <Text style={styles.noTicketsText}>Nenhum ticket encontrado.</Text>
+      )}
+    </ScrollView>
+  );
+}
+
+function TicketCard({ ticket }) {
   const [randomGate, setRandomGate] = useState(null);
 
   useEffect(() => {
@@ -12,13 +63,6 @@ export default function TicketCard() {
     const randomNumber = Math.floor(Math.random() * 15) + 1;
     setRandomGate(randomNumber);
   }, []);
-
-  const ticket = {
-    event: "How I Met Your Mother",
-    name: "Vladimir Kudinov",
-    seat: 156,
-    time: "12:00",
-  };
 
   return (
     <View style={styles.cardWrap}>
@@ -63,6 +107,15 @@ export default function TicketCard() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   cardWrap: {
     flexDirection: "row",
     backgroundColor: "#E84C3D",
@@ -164,5 +217,10 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: "none",
     marginVertical: 10,
+  },
+  noTicketsText: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#A2AEAE",
   },
 });

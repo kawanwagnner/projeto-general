@@ -71,7 +71,10 @@ export default function ProfileScreen() {
         </View>
 
         <View style={styles.menu}>
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={() => navigation.navigate("Tickets")}
+          >
             <View style={styles.menuIcon}>
               <Ionicons name="list-outline" size={24} color="#94A98D" />
             </View>
@@ -98,7 +101,7 @@ export default function ProfileScreen() {
             // Limpar dados de login ao sair
             await AsyncStorage.removeItem("userToken");
             await AsyncStorage.removeItem("userData");
-            navigation.navigate("Login"); // Redireciona para a tela de login
+            navigation.navigate("Login");
           }}
         >
           <Ionicons name="log-out-outline" size={24} color="#FFFFFF" />
