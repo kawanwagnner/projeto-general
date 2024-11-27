@@ -99,18 +99,40 @@
       "name": "Kawan",
       "usuario": "kawan_wg",
       "email": "kawan7@gmail.com",
-      "password": "123456789",
+      "password": "kawan1",
       "photo-user": "none",
-      "createdAt": "2024-11-26T19:32:22.341Z"
+      "createdAt": "2024-11-26T19:32:22.341Z",
+      "tickets": [
+        {
+          "eventId": "54de",
+          "name": "Reggae Vibes - Marley Sons",
+          "date": "25/11/2024",
+          "time": "19:00"
+        },
+        {
+          "eventId": "8473",
+          "name": "Jazz Night - Banda Smooth",
+          "date": "23/11/2024",
+          "time": "20:30"
+        }
+      ]
     },
     {
       "id": "87c1",
       "name": "Kawan Wagnner",
-      "usuario": "kkawan_kk",
+      "usuario": "kawan_kk",
       "email": "kawan@gmail.com",
-      "password": "123456",
+      "password": "kawan1",
       "createdAt": "2024-11-26T19:32:22.341Z",
-      "photo-user": "none"
+      "photo-user": "none",
+      "tickets": [
+        {
+          "eventId": "8473",
+          "name": "Jazz Night - Banda Smooth",
+          "date": "23/11/2024",
+          "time": "20:30"
+        }
+      ]
     }
   ]
 }

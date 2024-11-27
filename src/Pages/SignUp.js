@@ -92,6 +92,7 @@ export default function SignupScreen() {
           email: email, // Enviando email
           password: password,
           createdAt: new Date().toISOString(), // Data de criação
+          tickets: [],
           "photo-user": "none",
         }),
       });

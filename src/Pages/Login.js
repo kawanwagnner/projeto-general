@@ -32,7 +32,9 @@ export default function LoginScreen() {
       const users = await response.json();
 
       const foundUser = users.find(
-        (user) => user.usuario === usuario && user.password === password
+        (user) =>
+          user.usuario === usuario ||
+          (user.email === usuario && user.password === password)
       );
 
       if (foundUser) {
@@ -49,7 +51,7 @@ export default function LoginScreen() {
         // Navegar para a tela Home
         navigation.navigate("Home");
       } else {
-        setError("Usuário ou password inválidos");
+        setError("Usuário ou senha inválidos");
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);
@@ -75,14 +77,14 @@ export default function LoginScreen() {
         {/* Campos de Login */}
         <TextInput
           style={styles.input}
-          placeholder="Usuário"
+          placeholder="Usuário ou email"
           placeholderTextColor="#AAA"
           value={usuario}
           onChangeText={setUsuario}
         />
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder="Senha"
           placeholderTextColor="#AAA"
           secureTextEntry
           value={password}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -13,15 +13,20 @@ import { Calendar } from "react-native-calendars";
 import BottomNavBar from "../Components/BottomNavBar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DetailsScreen = () => {
-  const [modalVisible, setModalVisible] = useState(false); // Estado para controlar a visibilidade do modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [ticketResgatado, setTicketResgatado] = useState(false);
+  const [userId, setUserId] = useState(null);
   const route = useRoute();
   const navigation = useNavigation();
-  const { event } = route.params || {}; // Garante que `event` não será undefined
+  const { event } = route.params || {};
 
   if (!event) {
-    // Mostra uma mensagem se o evento não foi passado
     return (
       <View style={styles.noEventContainer}>
         <Text style={styles.noEventText}>
@@ -36,8 +41,6 @@ const DetailsScreen = () => {
               routes: [{ name: "Home" }],
             })
           }
-          accessible={true}
-          accessibilityLabel="Botão para voltar à tela inicial"
         >
           <Text style={styles.goHomeButtonText}>Ir para a Home</Text>
         </TouchableOpacity>
@@ -45,30 +48,108 @@ const DetailsScreen = () => {
     );
   }
 
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("userData");
+        if (userData) {
+          const parsedUserData = JSON.parse(userData);
+          setUserId(parsedUserData.id);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar os dados do usuário:", error);
+      }
+    };
+
+    const checkTicketStatus = async () => {
+      if (!userId || !event) return;
+
+      try {
+        const userResponse = await axios.get(
+          `http://localhost:3000/users/${userId}`
+        );
+        const user = userResponse.data;
+
+        // Verifica se o ingresso já foi resgatado
+        if (user.tickets && user.tickets.some((t) => t.name === event.name)) {
+          setTicketResgatado(true); // Marca o ticket como resgatado
+        }
+      } catch (error) {
+        console.error("Erro ao verificar o status do ingresso:", error);
+      }
+    };
+
+    loadUserData(); // Carregar dados do usuário
+    checkTicketStatus(); // Verificar o status do ticket
+  }, [userId, event]); // Reexecutar quando userId ou event mudarem
+
+  const handleGetTicket = async () => {
+    if (ticketResgatado || !userId) return;
+
+    const ticket = {
+      eventId: event.id,
+      name: event.name,
+      date: event.date,
+      time: event.time,
+    };
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const userResponse = await axios.get(
+        `http://localhost:3000/users/${userId}`
+      );
+      const user = userResponse.data;
+
+      // Verifica se o ingresso já foi resgatado
+      if (user.tickets && user.tickets.some((t) => t.name === event.name)) {
+        setError("Ticket já resgatado.");
+        setTicketResgatado(true); // Marca como já resgatado
+        setLoading(false);
+        return;
+      }
+
+      const updatedTickets = user.tickets
+        ? [...user.tickets, ticket]
+        : [ticket];
+
+      const response = await axios.patch(
+        `http://localhost:3000/users/${userId}`,
+        {
+          tickets: updatedTickets,
+        }
+      );
+
+      if (response.status === 200) {
+        setModalVisible(true);
+        setTicketResgatado(true);
+      }
+    } catch (error) {
+      console.error("Erro ao salvar o ingresso: ", error);
+      setError("Houve um erro ao salvar o ingresso. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <ScrollView
         style={styles.container}
         contentContainerStyle={{ paddingBottom: 20 }}
       >
-        {/* Seção do Evento */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Evento</Text>
           <View style={styles.suggestionCard}>
             <ImageBackground
-              source={{
-                uri: event.uri,
-              }}
+              source={{ uri: event.uri }}
               style={styles.imageBackground}
               imageStyle={styles.imageStyle}
             >
               <View style={styles.cardContent}>
                 <Text style={styles.cardText}>{event.name}</Text>
-                <TouchableOpacity
-                  onPress={() => console.log("Favoritado!")}
-                  accessible={true}
-                  accessibilityLabel="Botão para favoritar este evento"
-                >
+                <TouchableOpacity onPress={() => console.log("Favoritado!")}>
                   <Ionicons
                     name="heart-outline"
                     size={20}
@@ -80,8 +161,6 @@ const DetailsScreen = () => {
             </ImageBackground>
           </View>
         </View>
-
-        {/* Calendário e Data */}
         <Text style={styles.monthText}>Confirme as Informações</Text>
         <Calendar
           style={styles.calendar}
@@ -100,70 +179,36 @@ const DetailsScreen = () => {
               selectedColor: "#8B0000",
             },
           }}
-          dayComponent={({ date, state }) => {
-            const [day, month, year] = event.date.split("/");
-            const eventDate = new Date(`${year}-${month}-${day}`);
-
-            const eventDay = eventDate.getDate() + 1;
-            const eventMonth = eventDate.getMonth() + 1;
-            const eventYear = eventDate.getFullYear();
-
-            const currentDay = date.day;
-            const currentMonth = date.month;
-            const currentYear = date.year;
-
-            const isSelectedDay =
-              currentDay === eventDay &&
-              currentMonth === eventMonth &&
-              currentYear === eventYear;
-
-            return (
-              <View
-                style={[
-                  styles.dayContainer,
-                  isSelectedDay && styles.selectedDay,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.dayText,
-                    state === "disabled" ? styles.disabledDayText : null,
-                    isSelectedDay ? styles.selectedDayText : null,
-                  ]}
-                >
-                  {date.day}
-                </Text>
-              </View>
-            );
-          }}
         />
-
-        {/* Botões */}
-        <TouchableOpacity
-          style={styles.dateButton}
-          accessible={true}
-          accessibilityLabel={`Botão com informações: dia ${event.date} às ${event.time}`}
-        >
+        <TouchableOpacity style={styles.dateButton}>
           <Text style={styles.dateButtonText}>
             DIA {event.date} às {event.time}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.infoButton}
-          onPress={() => setModalVisible(true)} // Exibe o modal ao clicar
-          accessible={true}
-          accessibilityLabel="Botão para obter ingressos"
+          style={[
+            styles.infoButton,
+            ticketResgatado && { backgroundColor: "#28a745" }, // Cor verde quando o ingresso já foi resgatado
+          ]}
+          onPress={handleGetTicket}
+          disabled={loading || ticketResgatado}
         >
-          <Text style={styles.infoButtonText}>Pegar meu ingresso ›</Text>
+          <Text style={styles.infoButtonText}>
+            {loading
+              ? "Carregando..."
+              : ticketResgatado
+              ? "Ingresso Resgatado"
+              : "Pegar meu ingresso ›"}
+          </Text>
         </TouchableOpacity>
+        {error && <Text style={styles.errorText}>{error}</Text>}
       </ScrollView>
 
-      {/* Modal */}
       <Modal
         transparent={true}
         visible={modalVisible}
         animationType="slide"
-        onRequestClose={() => setModalVisible(false)} // Fecha ao pressionar "voltar"
+        onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
@@ -244,28 +289,6 @@ const styles = StyleSheet.create({
   cardText: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
-  },
-  dayContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  dayText: {
-    fontSize: 16,
-    color: "#000",
-  },
-  disabledDayText: {
-    color: "#d9e1e8",
-  },
-  selectedDay: {
-    backgroundColor: "#8B0000",
-    borderRadius: 20,
-  },
-  selectedDayText: {
-    color: "#fff",
     fontWeight: "bold",
   },
   heartIcon: {

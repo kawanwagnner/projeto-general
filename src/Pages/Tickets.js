@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   barcode: {
     width: "80%",
     height: 20,
-    backgroundColor: "#000",
+    backgroundColor: "none",
     marginVertical: 10,
   },
 });
