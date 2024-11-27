@@ -104,12 +104,6 @@
       "createdAt": "2024-11-26T19:32:22.341Z",
       "tickets": [
         {
-          "eventId": "54de",
-          "name": "Reggae Vibes - Marley Sons",
-          "date": "25/11/2024",
-          "time": "19:00"
-        },
-        {
           "eventId": "8473",
           "name": "Jazz Night - Banda Smooth",
           "date": "23/11/2024",
@@ -131,6 +125,12 @@
           "name": "Jazz Night - Banda Smooth",
           "date": "23/11/2024",
           "time": "20:30"
+        },
+        {
+          "eventId": "54de",
+          "name": "Reggae Vibes - Marley Sons",
+          "date": "25/11/2024",
+          "time": "19:00"
         }
       ]
     }
