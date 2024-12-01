@@ -10,11 +10,13 @@ import {
 } from "react-native";
 import axios from "axios";
 import BottomNavBar from "../Components/BottomNavBar";
+import { useNavigation } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 
 export default function SearchScreen() {
   const [categories, setCategories] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     axios
@@ -34,15 +36,23 @@ export default function SearchScreen() {
           <Text style={styles.headerText}>Esportes disponíveis</Text>
         </View>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {categories.map((sport, index) => (
-            <TouchableOpacity key={index} style={styles.card}>
+          {categories.map((category, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.card}
+              onPress={() => {
+                navigation.navigate("OnlyEvent", {
+                  cantores: category.cantores,
+                });
+              }}
+            >
               <ImageBackground
-                source={{ uri: sport.uri }}
+                source={{ uri: category.uri }}
                 style={styles.imageBackground}
                 imageStyle={styles.imageStyle}
               >
                 <View style={styles.overlay}>
-                  <Text style={styles.cardText}>{sport.name}</Text>
+                  <Text style={styles.cardText}>{category.name}</Text>
                 </View>
               </ImageBackground>
             </TouchableOpacity>
