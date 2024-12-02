@@ -156,7 +156,7 @@
           "name": "Aline Barros",
           "date": "01/12/2024",
           "time": "20:00",
-          "uri": "https://images.unsplash.com/photo-1603126312762-df987ac9ff66?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGJvc3BlbmlvbnxlbnwwfHx8fDE2NjI4NzQyNzg&ixlib=rb-1.2.1&q=80&w=1080"
+          "uri": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM-xHGDlUEj6aFvw9QsfTy6c1a0Nny9AboQQ&s"
         },
         {
           "id": "17",
@@ -344,12 +344,6 @@
           "name": "Eletrônica - DJ Sabô",
           "date": "21/11/2024",
           "time": "22:00"
-        },
-        {
-          "eventId": "j1k2l3m4",
-          "name": "Alicia Keys",
-          "date": "21/11/2024",
-          "time": "21:30"
         }
       ]
     },
@@ -367,6 +361,12 @@
           "name": "Jazz Night - Banda Smooth",
           "date": "23/11/2024",
           "time": "20:30"
+        },
+        {
+          "eventId": "j1k2l3m4",
+          "name": "Alicia Keys",
+          "date": "21/11/2024",
+          "time": "21:30"
         }
       ]
     }

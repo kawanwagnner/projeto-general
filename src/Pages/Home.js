@@ -39,6 +39,48 @@ export default function HomeScreen() {
       .catch((error) => console.error("Erro ao buscar populares:", error));
   }, []);
 
+  // Função para obter os cantores (Alicia Keys e Aline Barros sempre fixos, depois aleatórios)
+  const getCantores = () => {
+    const cantoresList = [];
+
+    // Encontra Aline Barros (se houver)
+    const alineBarros = categories
+      .flatMap((category) => category.cantores)
+      .find((cantor) => cantor.name === "Aline Barros");
+
+    // Encontra Alicia Keys (se houver)
+    const aliciaKeys = categories
+      .flatMap((category) => category.cantores)
+      .find((cantor) => cantor.name === "Alicia Keys");
+
+    if (alineBarros) {
+      cantoresList.push(alineBarros); // Garante que Aline Barros esteja na lista
+    }
+
+    if (aliciaKeys) {
+      cantoresList.push(aliciaKeys); // Garante que Alicia Keys esteja na lista
+    }
+
+    // Pega todos os outros cantores (sem incluir Alicia Keys e Aline Barros)
+    const otherCantores = categories
+      .flatMap((category) => category.cantores)
+      .filter(
+        (cantor) =>
+          cantor.name !== "Alicia Keys" && cantor.name !== "Aline Barros"
+      );
+
+    // Pode adicionar outros cantores aleatórios (se houver) após Alicia Keys e Aline Barros
+    if (otherCantores.length > 0) {
+      const randomCantor =
+        otherCantores[Math.floor(Math.random() * otherCantores.length)];
+      cantoresList.push(randomCantor);
+    }
+
+    return cantoresList;
+  };
+
+  const cantores = getCantores();
+
   return (
     <>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -86,7 +128,6 @@ export default function HomeScreen() {
         </View>
 
         {/* Destaques Section */}
-        {/* Destaques Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Destaques</Text>
           {destaques.map((destaque, index) => (
@@ -110,6 +151,37 @@ export default function HomeScreen() {
                   <Text style={styles.cardText}>{destaque.name}</Text>
                   <Text style={styles.cardSubtext}>
                     {destaque.date} às {destaque.time}
+                  </Text>
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {/* Cantores Section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Cantores</Text>
+          {cantores.map((cantor, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.suggestionCard}
+              onPress={() =>
+                navigation.navigate("DetailsEvent", { event: cantor })
+              }
+            >
+              <ImageBackground
+                source={
+                  cantor.uri
+                    ? { uri: cantor.uri }
+                    : require("../../assets/404.png")
+                }
+                style={styles.imageBackground}
+                imageStyle={styles.cardImage}
+              >
+                <View style={styles.cardContent}>
+                  <Text style={styles.cardText}>{cantor.name}</Text>
+                  <Text style={styles.cardSubtext}>
+                    {cantor.date} às {cantor.time}
                   </Text>
                 </View>
               </ImageBackground>
