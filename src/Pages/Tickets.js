@@ -90,17 +90,58 @@ export default function TicketList() {
 
   const handleViewDetails = async (ticket) => {
     try {
+      console.log("Ticket selecionado:", ticket); // Verifique se os dados estão corretos
+
       // Requisição ao endpoint de "destaques" para obter os eventos
-      const response = await axios.get("http://localhost:3000/destaques");
+      const destaqueResponse = await axios.get(
+        "http://localhost:3000/destaques"
+      );
+      const destaques = destaqueResponse.data;
 
       // Buscar evento na lista de destaques com base no nome
-      const event = response.data.find((event) => event.name === ticket.name);
+      const eventInDestaques = destaques.find(
+        (event) => event.name === ticket.name
+      );
+      console.log("Evento encontrado nos destaques:", eventInDestaques); // Verifique se o evento foi encontrado
 
-      if (event) {
-        // Passar o evento completo e a URI da imagem para a tela de detalhes
-        navigation.navigate("DetailsEvent", { event, imageUri: event.uri });
+      if (eventInDestaques) {
+        // Se encontrado nos destaques, navegue para a tela de detalhes
+        navigation.navigate("DetailsEvent", {
+          event: eventInDestaques,
+          imageUri: eventInDestaques.uri,
+        });
       } else {
-        console.error("Evento não encontrado nos destaques.");
+        // Se não encontrado nos destaques, buscar nas categorias > cantores
+        const categoriesResponse = await axios.get(
+          "http://localhost:3000/categories"
+        );
+        const categories = categoriesResponse.data;
+
+        let eventInCategories = null;
+
+        // Procurar o evento nas categorias
+        categories.forEach((category) => {
+          const foundInCategory = category.cantores.find(
+            (cantor) => cantor.name === ticket.name
+          );
+          if (foundInCategory) {
+            eventInCategories = foundInCategory;
+          }
+        });
+
+        console.log("Evento encontrado nas categorias:", eventInCategories);
+
+        if (eventInCategories) {
+          // Se encontrado nas categorias, navegue para a tela de detalhes
+          navigation.navigate("DetailsEvent", {
+            event: eventInCategories,
+            imageUri: eventInCategories.uri,
+          });
+        } else {
+          console.error(
+            "Evento não encontrado nos destaques nem nas categorias."
+          );
+        }
       }
     } catch (error) {
       console.error("Erro ao carregar o evento:", error);

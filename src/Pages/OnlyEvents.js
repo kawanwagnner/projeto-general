@@ -19,7 +19,7 @@ export default function OnlyEventScreen() {
 
   // Função para navegar para a tela de detalhes
   const navigateToDetails = (cantor) => {
-    navigation.navigate("DetailsEvent", { cantor });
+    navigation.navigate("DetailsEvent", { event: cantor });
   };
 
   return (
@@ -29,7 +29,7 @@ export default function OnlyEventScreen() {
         <TouchableOpacity
           key={index}
           style={styles.card}
-          onPress={() => navigateToDetails(cantor)}
+          onPress={() => navigateToDetails(cantor)} // Navegar para a tela de detalhes
         >
           <ImageBackground
             source={{ uri: cantor.uri }}

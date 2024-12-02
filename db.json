@@ -338,6 +338,18 @@
           "name": "Jazz Night - Banda Smooth",
           "date": "23/11/2024",
           "time": "20:30"
+        },
+        {
+          "eventId": "3d9d",
+          "name": "Eletrônica - DJ Sabô",
+          "date": "21/11/2024",
+          "time": "22:00"
+        },
+        {
+          "eventId": "j1k2l3m4",
+          "name": "Alicia Keys",
+          "date": "21/11/2024",
+          "time": "21:30"
         }
       ]
     },
