@@ -69,7 +69,7 @@
           "name": "Bob Marley",
           "date": "01/12/2024",
           "time": "21:00",
-          "uri": "https://images.unsplash.com/photo-1549424020-54bcaa906907?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDg4fG5vcnRoZXJub3R8ZW58MHx8fHwxNjYyODc0MTQw&ixlib=rb-1.2.1&q=80&w=1080"
+          "uri": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0870e1a6-3a19-42d9-a55c-fc8cde61f63b/d2gntpz-e6c6ebd3-66b0-4dbb-a6ec-4216f2717c72.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA4NzBlMWE2LTNhMTktNDJkOS1hNTVjLWZjOGNkZTYxZjYzYlwvZDJnbnRwei1lNmM2ZWJkMy02NmIwLTRkYmItYTZlYy00MjE2ZjI3MTdjNzIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.RWf3RMJWe5eUXKCUusYLfX3-TmpyESwy1OIgCn8dA8M0"
         },
         {
           "id": "8",
@@ -163,14 +163,14 @@
           "name": "Fernandinho",
           "date": "05/12/2024",
           "time": "19:30",
-          "uri": "https://images.unsplash.com/photo-1603126312762-df987ac9ff66?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGJvc3BlbmlvbnxlbnwwfHx8fDE2NjI4NzQyNzg&ixlib=rb-1.2.1&q=80&w=1080"
+          "uri": "https://eventicket.s3-sa-east-1.amazonaws.com/imgs/35548-banner-opus-1180x420-px-sao-jose.jpg"
         },
         {
           "id": "18",
-          "name": "Pastora Ludmila",
+          "name": "Pr. Ludmila Ferber",
           "date": "10/12/2024",
           "time": "20:30",
-          "uri": "https://images.unsplash.com/photo-1603126312762-df987ac9ff66?crop=entropy&cs=tinysrgb&fit=max&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGJvc3BlbmlvbnxlbnwwfHx8fDE2NjI4NzQyNzg&ixlib=rb-1.2.1&q=80&w=1080"
+          "uri": "https://portaldeamericana.com/wp-content/uploads/2022/01/ludmila.jpg"
         }
       ]
     },
@@ -185,21 +185,21 @@
           "name": "Zeca Pagodinho",
           "date": "21/11/2024",
           "time": "20:30",
-          "uri": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Zeca_Pagodinho_2014.jpg"
+          "uri": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJNlAc9HVWz5sRJxWhf24Qe4VS3NwmC1bwTw&s"
         },
         {
           "id": "d5e6f7g8",
-          "name": "Raça Negra",
+          "name": "Thiaguinho",
           "date": "22/11/2024",
           "time": "19:30",
-          "uri": "https://upload.wikimedia.org/wikipedia/commons/3/37/Raca_Negra_2014.jpg"
+          "uri": "https://s2-g1.glbimg.com/GPmCUnjzGAy1aErRqqtFhCDPTAs=/0x0:820x360/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2020/A/7/AIZ74pRiCda1RoRwMuKQ/thiaguinhoface.png"
         },
         {
           "id": "h9i0j1k2",
           "name": "Sorriso Maroto",
           "date": "23/11/2024",
           "time": "21:00",
-          "uri": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Sorriso_Maroto_2017.jpg"
+          "uri": "https://f.i.uol.com.br/fotografia/2021/10/15/16343203236169bfc369503_1634320323_3x2_rt.jpg"
         }
       ]
     },
@@ -243,21 +243,21 @@
           "name": "Kendrick Lamar",
           "date": "21/11/2024",
           "time": "22:00",
-          "uri": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Kendrick_Lamar_2018.jpg"
+          "uri": "https://blackmusicscholar.com/wp-content/uploads/2020/10/Screen-Shot-2020-10-28-at-8.34.57-PM-1024x567.png"
         },
         {
           "id": "b1c2d3e4",
           "name": "Drake",
           "date": "22/11/2024",
           "time": "23:30",
-          "uri": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Drake_2013.jpg"
+          "uri": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSim-Liw1y9KylQavTyA_i19mtrKXM7CBgSvg&s"
         },
         {
           "id": "f5g6h7i8",
           "name": "J. Cole",
           "date": "23/11/2024",
           "time": "20:00",
-          "uri": "https://upload.wikimedia.org/wikipedia/commons/2/21/J._Cole_2019.jpg"
+          "uri": "https://wallpapers.com/images/hd/j-cole-dreamville-1raezg5q7ez6n555.jpg"
         }
       ]
     },
@@ -279,14 +279,14 @@
           "name": "Usher",
           "date": "22/11/2024",
           "time": "20:30",
-          "uri": "https://upload.wikimedia.org/wikipedia/commons/3/36/Usher_2016.jpg"
+          "uri": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQZSHpcfpluBT3U3pHvP-aB1JNPjzsKB4maQ&s"
         },
         {
           "id": "r9s0t1u2",
           "name": "Mary J. Blige",
           "date": "23/11/2024",
           "time": "19:30",
-          "uri": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Mary_J._Blige_2012.jpg"
+          "uri": "https://wallpapers.com/images/hd/actress-and-singer-mary-j-blige-4o9ns0urxewojab7.jpg"
         }
       ]
     }
@@ -369,6 +369,29 @@
           "time": "21:30"
         }
       ]
+    },
+    {
+      "id": "ed7e",
+      "name": "Joao",
+      "usuario": "joaozin",
+      "email": "joao@gamil.com",
+      "password": "123456",
+      "createdAt": "2024-12-02T17:23:19.766Z",
+      "tickets": [
+        {
+          "eventId": "17",
+          "name": "Fernandinho",
+          "date": "05/12/2024",
+          "time": "19:30"
+        },
+        {
+          "eventId": "16",
+          "name": "Aline Barros",
+          "date": "01/12/2024",
+          "time": "20:00"
+        }
+      ],
+      "photo-user": "none"
     }
   ]
 }

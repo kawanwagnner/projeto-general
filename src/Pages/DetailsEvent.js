@@ -188,7 +188,7 @@ const DetailsScreen = () => {
         <TouchableOpacity
           style={[
             styles.infoButton,
-            ticketResgatado && { backgroundColor: "#28a745" }, // Cor verde quando o ingresso já foi resgatado
+            ticketResgatado && { backgroundColor: "#28a745" },
           ]}
           onPress={handleGetTicket}
           disabled={loading || ticketResgatado}

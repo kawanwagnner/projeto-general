@@ -40,8 +40,8 @@ export default function LoginScreen() {
       if (foundUser) {
         // Salvar dados do usuário no AsyncStorage
         try {
-          await AsyncStorage.setItem("userToken", "authenticated"); // Armazena o token de autenticação
-          await AsyncStorage.setItem("userData", JSON.stringify(foundUser)); // Armazena os dados do usuário (como nome, email, etc.)
+          await AsyncStorage.setItem("userToken", "authenticated");
+          await AsyncStorage.setItem("userData", JSON.stringify(foundUser));
         } catch (error) {
           console.error("Erro ao salvar no AsyncStorage:", error);
           setError("Erro ao armazenar dados de login.");
